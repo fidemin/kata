@@ -1,4 +1,4 @@
-package main
+package counter
 
 import "time"
 
@@ -24,16 +24,16 @@ func (dl *DataPointList) Push(dp *DataPoint) {
 	headDp := dl.Head
 
 	dp.Before = headDp
-	headDp.next = dp
+	headDp.Next = dp
 	dl.Head = dp
 }
 
 func (dl *DataPointList) Pop() *DataPoint {
 	tailDp := dl.Tail
-	nextDp := dl.Tail.next
+	nextDp := dl.Tail.Next
 
 	nextDp.Before = nil
-	tailDp.next = nil
+	tailDp.Next = nil
 
 	dl.TotalCount -= tailDp.Count
 
@@ -41,7 +41,7 @@ func (dl *DataPointList) Pop() *DataPoint {
 }
 
 type DataPoint struct {
-	next      *DataPoint
+	Next      *DataPoint
 	Before    *DataPoint
 	Timestamp time.Time
 	Count     int

@@ -1,7 +1,6 @@
-package main
+package counter
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -46,12 +45,4 @@ func (c *Counter) count(dl *DataPointList, window time.Duration, now time.Time) 
 		dl.Pop()
 	}
 	return dl.TotalCount
-}
-
-func main() {
-	counter := NewCounter()
-	counter.Add(10)
-	counter.Add(20)
-	fmt.Println(counter.MinuteCount())
-	fmt.Println(counter.HourCount())
 }
