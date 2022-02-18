@@ -29,13 +29,24 @@ func (dl *DataPointList) Push(dp *DataPoint) {
 }
 
 func (dl *DataPointList) Pop() *DataPoint {
+	if dl.Head == nil && dl.Tail == nil {
+		return nil
+	}
+
 	tailDp := dl.Tail
 	nextDp := dl.Tail.Next
 
-	nextDp.Before = nil
 	tailDp.Next = nil
-
 	dl.TotalCount -= tailDp.Count
+
+	if nextDp == nil {
+		dl.Head = nil
+		dl.Tail = nil
+		return tailDp
+	}
+
+	dl.Tail = nextDp
+	nextDp.Before = nil
 
 	return tailDp
 }
